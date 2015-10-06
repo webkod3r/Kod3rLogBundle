@@ -1,0 +1,33 @@
+parameters:
+    kod3r_log.logger_database.class: Kod3r\LogBundle\Logger\DatabaseHandler
+    kod3r_log.logger_backtrace.class: Kod3r\LogBundle\EventListener\BacktraceLoggerListener
+    kod3r_log.logger_utils.class: Kod3r\LogBundle\Utils\LoggerUtils
+
+services:
+    # Procesador de parametros de la peticion que se ejecutó
+    kod3r_log.processor.request:
+        class: Kod3r\LogBundle\Processor\RequestProcessor
+        arguments: [@session]
+        tags:
+            - { name: monolog.processor, method: processRecord, channel: backtrace }
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest}
+
+    #
+    # Manejador de logs para el almacenamiento en Base de Datos
+    kod3r_log.logger_database:
+        class: %kod3r_log.logger_database.class%
+        calls:
+            - [ setEntityManager, [@doctrine.orm.entity_manager] ]
+
+    kod3r_log.logger_backtrace.listener:
+        class: %kod3r_log.logger_backtrace.class%
+        arguments:
+            - @logger
+        tags:
+            - { name: monolog.logger, channel: backtrace }
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+
+    #
+    # Servicio para acceder a las utilidades del logger y contexto
+    kod3r_log.logger_utils:
+        class: %kod3r_log.logger_utils.class%

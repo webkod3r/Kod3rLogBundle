@@ -1,0 +1,3 @@
+#kod3r_log_homepage:
+#    path:     /hello/{name}
+#    defaults: { _controller: Kod3rLogBundle:Default:index }

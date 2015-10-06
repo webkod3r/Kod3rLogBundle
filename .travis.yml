@@ -1,0 +1,18 @@
+language: php
+
+php:
+  - 5.3
+  - 5.4
+  - 5.5  
+
+matrix:
+  allow_failures:
+    - php: 5.5
+
+env:
+  - SYMFONY_VERSION=v2.0.15
+  - SYMFONY_VERSION=v2.1.9
+  - SYMFONY_VERSION=v2.2.1
+  - SYMFONY_VERSION=origin/master
+  
+before_script: php vendor/vendors.php  
