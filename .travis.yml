@@ -7,19 +7,30 @@ php:
   - nightly
 
 matrix:
+  fast_finish: true
+    - php: 5.3
+      env: COMPOSER_FLAGS="--prefer-lowest"
   allow_failures:
-    - php: 5.5
+    - php: hhvm
+    - env: SYMFONY_VERSION=2.8.*@dev
+    - env: SYMFONY_VERSION="3.0.x-dev as 2.8"
 
 env:
   - SYMFONY_VERSION=2.3.*
   - SYMFONY_VERSION=2.7.*
   - SYMFONY_VERSION=dev-master
 
-install: php vendor/vendors.php
+#install: php vendor/vendors.php
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
 
 before_script:
   - composer self-update
-  - composer require symfony/http-foundation:${SYMFONY_VERSION}
+  - composer global require phpunit/phpunit --no-update
+  - if [ "$SYMFONY_VERSION" != "" ]; then composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update; fi;
+  - travis_wait composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
 
 notifications:
   email:
