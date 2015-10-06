@@ -1,6 +1,11 @@
-# Kod3lLogBundle
+# Kod3rLogBundle
 Symfony2 logger bundle saved in database using Doctrine2 ORM
 
+##### Ramas: 
+* `master` [![Build Status](https://travis-ci.org/webkod3r/Kod3lLogBundle.svg?branch=master)](https://travis-ci.org/webkod3r/Kod3lLogBundle)
+* `develop` [![Build Status](https://travis-ci.org/webkod3r/Kod3lLogBundle.svg?branch=develop)](https://travis-ci.org/webkod3r/Kod3lLogBundle)
+
+# Indice
 * [Instalación](#instalacion)
 * [Cómo Usar](#como-usar)
 * [Historial](#historial)
