@@ -20,7 +20,7 @@ Instalacion
 Ejecute el siguiente comando en la raiz de su proyecto:
 
 ```
-$php composer require kod3r/log:dev-master
+$ php composer require kod3r/log:dev-master
 ```
 
 O adicione el bundle `kod3r/log` en su fichero `composer.json` como se muestra a continuación:
@@ -35,7 +35,7 @@ O adicione el bundle `kod3r/log` en su fichero `composer.json` como se muestra a
 Actualice o instale el bundle ejecutando 
 
 ```
-$php composer update kod3r/log
+$ php composer update kod3r/log
 ```
 
 
@@ -77,6 +77,13 @@ monolog:
             channels: ["!doctrine"] # Excluir el canal de doctrine
 ```
 
+Actualice su Base de Datos para crear la tabla `tb_system_log` que almacenará
+los logs de su aplicación.
+
+```
+$ app/console doctrine:schema:update --force
+```
+
 
 Como Usar
 ---------
@@ -108,7 +115,7 @@ public function indexAction( Request $request ){
 Historial
 ---------
 
-### v1.0.2 (2015-10-06)
+### v1.0.2 (????-??-??)
 - Agregando soporte para instalación mediante composer.
 - Actualizando dependencias en `composer.json`
 
