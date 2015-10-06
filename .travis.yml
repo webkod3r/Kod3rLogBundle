@@ -8,6 +8,7 @@ php:
 
 matrix:
   fast_finish: true
+  include:
     - php: 5.3
       env: COMPOSER_FLAGS="--prefer-lowest"
   allow_failures:
