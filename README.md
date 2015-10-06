@@ -1,11 +1,8 @@
 # Kod3lLogBundle
 Symfony2 logger bundle saved in database using Doctrine2 ORM
 
-Cómo usar este bundle:
-
-* [Instalacion](#instalacion)
-* [Configuracion](#configuracion)
-* [Como Usar](#como-usar)
+* [Instalación](#instalacion)
+* [Cómo Usar](#como-usar)
 * [Historial](#historial)
 * [TODO](#todo)
 
@@ -13,10 +10,36 @@ Cómo usar este bundle:
 Instalacion
 -----------
 
-De momento el bundle no esta disponible para ser instalado mediante composer.
-Por lo tanto la instalación debe realizarse de forma manual.
+1. [Descargar Kod3rLogBundle using composer](#descargar-kod3rlogbundle)
+2. [Habilitar el Bundle](#habilitar-el-bundle)
+3. [Configure el bundle en su fichero config.yml](#configuracion-del-bundle)
 
-Copie el directorio `Kod3r/LogBundle` en su directorio `src`
+
+#### Descargar Kod3rLogBundle
+
+Ejecute el siguiente comando en la raiz de su proyecto:
+
+```
+$php composer require kod3r/log:dev-master
+```
+
+O adicione el bundle `kod3r/log` en su fichero `composer.json` como se muestra a continuación:
+
+``` js
+"require": {
+    ...
+    "kod3r/log": "dev-master"
+}
+```
+
+Actualice o instale el bundle ejecutando 
+
+```
+$php composer update kod3r/log
+```
+
+
+#### Habilitar el Bundle
 
 Registre el bundle en `app/AppKernel.php`:
 
@@ -25,15 +48,14 @@ Registre el bundle en `app/AppKernel.php`:
 public function registerBundles()
 {
     return array(
-        // ...
+        ...
         new Kod3r\LogBundle\Kod3rLogBundle(),
     );
 }
 ```
 
 
-Configuracion
--------------
+#### Configuracion del Bundle
 
 Después de registrar el bundle, diríjase al fichero `config.yml` si desea establecer
 una configuración general para todos los entornos de producción. Si sólo desea
@@ -86,7 +108,11 @@ public function indexAction( Request $request ){
 Historial
 ---------
 
-### v1.0.1
+### v1.0.2 (2015-10-06)
+- Agregando soporte para instalación mediante composer.
+- Actualizando dependencias en `composer.json`
+
+### v1.0.1 (2015-10-01)
 - Cambiando el formateador de los mensajes de error, en vez de `JsonFormatter`
   ahora se usa `LineFormatter` y la información extendida se almacena como una
   cadena compuesta en JSON.

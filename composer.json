@@ -21,8 +21,9 @@
   ],
   "require": {
     "php": ">=5.3.0",
-    "doctrine/orm": "~2.4@stable,>=2.1,<=2.5",
-    "symfony/http-kernel": "~2.4"
+    "doctrine/orm": ">=2.1",
+    "monolog/monolog": ">=1.12",
+    "symfony/http-kernel": "~2.3.0"
   },
   "target-dir": "Kod3r/LogBundle",
   "autoload": {
