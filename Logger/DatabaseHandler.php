@@ -73,8 +73,8 @@ class DatabaseHandler extends AbstractProcessingHandler
                 $entity = new SystemLog();
                 $entity
                     ->setChannel( $record[ 'channel' ] )
-                    ->setLog( $record[ 'message' ] )
                     ->setLevel( $record[ 'level' ] )
+                    ->setLog( $record[ 'message' ] )
                     ->setFormattedMsg( $record[ 'formatted' ] )
                     ->setCreatedAt( new \DateTime() );
 

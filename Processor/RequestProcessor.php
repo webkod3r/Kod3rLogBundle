@@ -1,16 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Pablo
- * Date: 10/5/2015
- * Time: 9:37 a.m.
- */
-
 namespace Kod3r\LogBundle\Processor;
 
 
 use Symfony\Bridge\Monolog\Processor\WebProcessor;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 /**
  * Class RequestProcessor
@@ -22,12 +16,13 @@ use Symfony\Component\HttpFoundation\Session\Session;
  * for additional information to log. This could be used for a variety of
  * purposes, eg: adding server data, post data etc.
  *
+ * @author Pablo Molina <web.kod3r@gmail.com>
  * @package Kod3r\LogBundle\Processor
  */
 class RequestProcessor extends WebProcessor
 {
     /**
-     * @var Session
+     * @var $session Session
      */
     private $session;
 
@@ -62,4 +57,10 @@ class RequestProcessor extends WebProcessor
 
         return $record;
     }
+
+//    public function onKernelRequest(GetResponseEvent $event)
+//    {
+//        print_r('request proccessor -> onKernelRequest');
+//        exit;
+//    }
 }

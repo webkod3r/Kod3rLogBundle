@@ -51,7 +51,7 @@ monolog:
         backtrace:
             type: service
             level: warning # Mínimo nivel de log que se desea almacenar
-            id: kod3r_log.logger_database # Servicio para inicializar el manejador de BD
+            id: kod3r_log.logger_database # Servicio para el manejador de BD
             channels: ["!doctrine"] # Excluir el canal de doctrine
 ```
 

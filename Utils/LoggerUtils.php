@@ -1,5 +1,4 @@
 <?php
-
 namespace Kod3r\LogBundle\Utils;
 
 
@@ -22,7 +21,7 @@ class LoggerUtils
      *
      * @return array    Arreglo con la información de la ruta, URL, parámetros de la petición e información del usuario.
      */
-    public function getContext( Controller $controller, Request $request )
+    public static function getContext( Controller $controller, Request $request )
     {
         // Array that contains context information about log
         $context = array(
