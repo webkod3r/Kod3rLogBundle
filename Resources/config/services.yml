@@ -21,10 +21,20 @@ services:
         calls:
             - [ setEntityManager, [@doctrine.orm.entity_manager] ]
 
+    #
+    # Listener to record kernel events into logger system
     kod3r_log.logger_backtrace.listener:
         class: %kod3r_log.logger_backtrace.class%
         arguments:
             - @logger
+            - @security.token_storage
         tags:
             - { name: monolog.logger, channel: backtrace }
             - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest}
+
+    # Custom extension for random strings
+    kod3r_log.twig.extension:
+        class: Kod3r\LogBundle\Twig\Extension\JsonDecodeExtension
+        tags:
+            - { name: twig.extension }

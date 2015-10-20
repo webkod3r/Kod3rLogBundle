@@ -67,7 +67,7 @@ class DatabaseHandler extends AbstractProcessingHandler
 
         // Only log errors greater than a warning
         //@todo - you could ideally add this into configuration variable
-        if( (int)$record[ 'level' ] >= Logger::INFO ){
+        if( (int)$record[ 'level' ] >= Logger::INFO && (string)$record['channel'] == 'backtrace' ){
             try {
                 // Create entity and fill with data
                 $entity = new SystemLog();
@@ -94,6 +94,6 @@ class DatabaseHandler extends AbstractProcessingHandler
      */
     protected function getDefaultFormatter()
     {
-        return new LineFormatter('[%datetime%] %channel%.%level_name%: %message% {"context":%context%, "extra": %extra%}');
+        return new LineFormatter('{"date": "%datetime%", "channel": "%channel%.%level_name%", "message": "%message%", "context": %context%, "extra": %extra% }');
     }
 }

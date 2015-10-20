@@ -4,7 +4,6 @@ namespace Kod3r\LogBundle\Processor;
 
 use Symfony\Bridge\Monolog\Processor\WebProcessor;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 /**
  * Class RequestProcessor
@@ -57,10 +56,4 @@ class RequestProcessor extends WebProcessor
 
         return $record;
     }
-
-//    public function onKernelRequest(GetResponseEvent $event)
-//    {
-//        print_r('request proccessor -> onKernelRequest');
-//        exit;
-//    }
 }
