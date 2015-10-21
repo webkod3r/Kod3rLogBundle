@@ -63,7 +63,8 @@ class BacktraceLoggerListener
                 $event->getRequest()->getUri()
             );
             $this->logger->info( $msg );
-        } elseif( $token !== null && $token->getUser() instanceof UserInterface ) {
+        }
+        elseif( $token !== null && $token->getUser() instanceof UserInterface ) {
             $msg = sprintf(
                 'El usuario %s con identificador %d accedió a: %s',
                 $token->getUser()->getUsername(),

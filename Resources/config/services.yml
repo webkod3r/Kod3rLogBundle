@@ -33,6 +33,16 @@ services:
             - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest}
 
+    # Event listener to record doctrine messages
+    kod3r_log.doctrine.listener:
+        class: Kod3r\LogBundle\EventListener\DoctrineListener
+        arguments:
+            - @service_container
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
+            - { name: doctrine.event_listener, event: postUpdate }
+            - { name: doctrine.event_listener, event: preRemove }
+
     # Custom extension for random strings
     kod3r_log.twig.extension:
         class: Kod3r\LogBundle\Twig\Extension\JsonDecodeExtension
