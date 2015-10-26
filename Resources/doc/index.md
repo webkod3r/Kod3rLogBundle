@@ -35,30 +35,28 @@ public function registerBundles()
 Configuración
 -------------
 
-Después de registrar el bundle, diríjase al fichero `config.yml` si desea establecer
-una configuración general para todos los entornos de producción. Si sólo desea
-establecer la configuración en entorno de produción agregue esta configuración en
-`config_prod.yml`
+Después de registrar el bundle, se inyecta automáticamente la configuración
+necesaria para su funcionamiento en la clase `Kod3rLogExtension`, gracias a la
+interfaz `PrependExtensionInterface` la cual incluye la configuración al bundle
+`monolog` utilizado para gestionar los logs.
 
-Normalmente la configuración de los logs no se encuentra establecida en el
-fichero de configuración, en caso de que esté definida mezcle las opciones de
-`monolog` definidas con las que acá se describen.
+La configuración predeterminada es la siguiente:
 
 ``` yaml
-# app/config/config.yml
 monolog:
     handlers:
         backtrace:
             type: service
             level: warning # Mínimo nivel de log que se desea almacenar
             id: kod3r_log.logger_database # Servicio para el manejador de BD
-            channels: ["!doctrine"] # Excluir el canal de doctrine
+            channels: ["!doctrine", "!php"] # Excluir el canal de doctrine y php
 ```
 
 
 Cómo Usar
 ---------
 
+Por defecto
 Para incluir logs en su aplicación emplee el siguiente ejemplo dentro de las acciones
 de su controlador.
 
@@ -66,11 +64,11 @@ de su controlador.
 use Symfony\Component\HttpFoundation\Request;
 
 public function indexAction( Request $request ){
-  // Obtener el manejador de logs
-  $logger = $this->get( 'monolog.logger.backtrace' );
 
+  // Obtener el manejador de logs
+  $logger = LoggerUtils::getLogger($this);
   // Obtener información de contexto a traves del servicio definido
-  $context = $this->get('kod3r_log.logger_utils')->getContext($this, $request);
+  $context = LoggerUtils::getContext($this, $request);
 
   // Definir parámetros extras del contexto
   $context = array(
@@ -78,6 +76,7 @@ public function indexAction( Request $request ){
   );
 
   // Agregar el log y el contexto
+  $logger->info('Este es el mensaje de informacion', $context);
   $logger->warning( 'Este es un mensaje de WARNING!!!', $context );
 }
 ```
@@ -85,6 +84,10 @@ public function indexAction( Request $request ){
 
 Historial
 ---------
+
+### v1.0.2
+- Inyectando configuracion automática.
+- Incluyendo eventos para almacenar automáticamente los cambios en las entidades de doctrine.
 
 ### v1.0.1
 - Cambiando el formateador de los mensajes de error, en vez de `JsonFormatter`

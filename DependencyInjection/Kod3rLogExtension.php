@@ -20,17 +20,6 @@ class Kod3rLogExtension extends Extension implements PrependExtensionInterface
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $configToSet = array(
-            'handlers' => array(
-                'backtrace' => array(
-                    'type' => 'service',
-                    'level' => 'info',
-                    'id' => 'kod3r_log.logger_database',
-                    'channels' => '["!doctrine"]', // Exclude doctrine channel
-                )
-            )
-        );
-
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
@@ -64,14 +53,14 @@ class Kod3rLogExtension extends Extension implements PrependExtensionInterface
                         'type' => 'service',
                         'level' => 'info',
                         'id' => 'kod3r_log.logger_database',
-                        'channels' => '["!doctrine"]', // Exclude doctrine channel
+                        'channels' => array("!doctrine", "!php"), // Exclude doctrine channel
                     )
                 )
             );
 
             foreach( $container->getExtensions() as $name => $extension ){
                 if( 'monolog' == $name ){
-                    //$container->prependExtensionConfig($name, $config);
+                    $container->prependExtensionConfig($name, $config);
                 }
             }
         }
