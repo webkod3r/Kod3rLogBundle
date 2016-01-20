@@ -51,7 +51,10 @@ class LoggerUtils
      */
     public static function getLogger( Controller $controller )
     {
-        return $controller->get( 'monolog.logger.backtrace' );
+        if( $controller->has( 'monolog.logger.backtrace' ) ){
+            return $controller->get( 'monolog.logger.backtrace' );
+        }
+        return $controller->get( 'logger' );
     }
 
     /**
@@ -63,7 +66,11 @@ class LoggerUtils
     public static function getLoggerContext( Controller $controller, Request $request )
     {
         $result          = new \stdClass();
-        $result->logger  = $controller->get( 'monolog.logger.backtrace' );
+        if( $controller->has( 'monolog.logger.backtrace' ) ){
+            $result->logger  = $controller->get( 'monolog.logger.backtrace' );
+        }else{
+            $result->logger  = $controller->get( 'logger' );
+        }
         $result->context = self::getContext( $controller, $request );
 
         return $result;
